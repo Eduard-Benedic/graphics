@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { barchart } from "./barchart"
+import { Barchart } from "./barchart"
 
 const drawGrid = (
   ctx: CanvasRenderingContext2D,
@@ -30,13 +30,15 @@ const draw = (canvas: HTMLCanvasElement) => {
 
   drawGrid(ctx, canvas.width, canvas.height)
 
-  ctx.fillStyle = "#01847657"
-  ctx.fillRect(0, 0, 500, 500)
-
   const data = [16, 68, 20, 30, 54, 60, 20, 25, 23, 2]
-
+  ctx.save()
   ctx.fillStyle = "#b7d96a"
-  barchart(ctx, data, canvas.width, canvas.height)
+  const barchart = new Barchart(ctx, data, canvas.width, canvas.height)
+
+  barchart.draw()
+  barchart.addLabels()
+
+  ctx.restore()
 }
 
 const Canvas = () => {
